@@ -1,0 +1,21 @@
+<div class="user_card">
+   <div>
+      <a [href]="'user/' + user.id">
+         <img class="user_img" [src]="user.avatar" />
+      </a>
+   </div>
+   <div>
+      <div class="label">User Name</div>
+      <a [href]="'user/' + user.id">
+         <div class="user_info">{{user.first_name +" "+ user.last_name}}</div>
+      </a>
+
+   </div>
+
+   <div>
+      <div class="label">email</div>
+      <div class="user_info">{{user.email}}</div>
+   </div>
+
+
+</div>

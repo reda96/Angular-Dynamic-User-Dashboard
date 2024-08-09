@@ -4,5 +4,6 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 
 export const routes: Routes = [
     {path: 'users', component: UsersListComponent},
+    {path: '',pathMatch:"full", redirectTo: 'users'},
     {path: 'user/:id', component: UserDetailsComponent},
   ];

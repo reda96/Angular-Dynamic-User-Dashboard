@@ -1,1 +1,26 @@
-<p>header works!</p>
+<div class="header">
+    <div class="header-content">
+        <div style="display: inline-flex;" >
+
+            <a href="/users" ><i class="pi pi-chevron-left" style="font-size: 1rem"></i></a>
+            <div class="logo">Users Dashboard</div>
+        </div>
+        <div class="searchInput" #searchResultDiv> 
+            <p-inputNumber placeholder="Search with user id" inputId="userIdInput" (onFocus)="isSearchOpen = true" (onInput)="searchWithUserId($event)"  />
+            <div  *ngIf="isSearchOpen"  >
+            <ng-container  *ngIf="searchResultObs | async as result; else noUser" >
+                <div  class="searchResult" >
+                    <a [href]="'/user/'+ result.id" >
+                  {{result.first_name + " "+ result.last_name}}
+                </a>
+                </div>
+
+            </ng-container>
+            <ng-template #noUser>
+                <div  class="searchResult"   >
+                No User with this id
+            </div>
+             </ng-template>
+            </div>
+        </div>
+    </div>

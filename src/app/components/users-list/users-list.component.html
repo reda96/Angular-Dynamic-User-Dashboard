@@ -1,1 +1,19 @@
-<p>users-list works!</p>
+<div>
+
+    <ng-container *ngIf="usersObs | async as users">
+
+        <div *ngFor="let user of users"> 
+            <app-user-card [user]="user"></app-user-card>
+        </div>
+    </ng-container>
+    
+    <div *ngIf="pages> 1">
+        <p-paginator
+         
+          [rows]="6"
+          [totalRecords]="15"
+          (onPageChange)="paginate($event)"
+        >
+        </p-paginator>
+      </div>
+</div>
