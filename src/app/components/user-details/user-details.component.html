@@ -1,5 +1,8 @@
 <div class="details_card" *ngIf="userDetailsObs | async as user">
-
+    <div>
+        <a  [routerLink]="'/users'" ><i class="pi pi-chevron-left" style="font-size: 1rem"></i>
+        back</a>
+     </div>
     <div>
         <img [src]="user.avatar" />
     </div>
