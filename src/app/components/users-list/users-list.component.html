@@ -1,17 +1,17 @@
-<div>
+<div *ngIf="usersInfo$ | async as usersInfo">
 
-    <ng-container *ngIf="usersObs | async as users">
+    <div >
 
-        <div *ngFor="let user of users"> 
+        <div *ngFor="let user of usersInfo.users"> 
             <app-user-card [user]="user"></app-user-card>
         </div>
-    </ng-container>
+      </div>
     
-    <div *ngIf="pages> 1">
+    <div *ngIf="usersInfo.totalPages">
         <p-paginator
-         
+          [first]="(usersInfo.pageNumber-1)*6"
           [rows]="6"
-          [totalRecords]="15"
+          [totalRecords]="usersInfo.total"
           (onPageChange)="paginate($event)"
         >
         </p-paginator>

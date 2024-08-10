@@ -2,7 +2,7 @@
     <div class="header-content">
         <div style="display: inline-flex;" >
 
-            <a href="/users" ><i class="pi pi-chevron-left" style="font-size: 1rem"></i></a>
+            <a [routerLink]="'/users'" ><i class="pi pi-chevron-left" style="font-size: 1rem"></i></a>
             <div class="logo">Users Dashboard</div>
         </div>
         <div class="searchInput" #searchResultDiv> 
@@ -10,7 +10,7 @@
             <div  *ngIf="isSearchOpen"  >
             <ng-container  *ngIf="searchResultObs | async as result; else noUser" >
                 <div  class="searchResult" >
-                    <a [href]="'/user/'+ result.id" >
+                    <a [routerLink]="'/user/'+ result.id" >
                   {{result.first_name + " "+ result.last_name}}
                 </a>
                 </div>

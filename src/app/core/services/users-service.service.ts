@@ -23,12 +23,12 @@ export class UsersService {
     return this.searchResultSubject.asObservable();
   }
   getUsersList(page:number) {
-    this.http.get(`https://reqres.in/api/users?page=${page}`)
+   return this.http.get(`https://reqres.in/api/users?page=${page}`)
     .pipe(tap((response:any)=> {
-      this.usersSubject.next(response.data);
+      this.usersSubject.next(response);
       
     }))
-    .subscribe();
+    
   }
   getUserDetail(userId:number) {
     this.http.get(`https://reqres.in/api/users/${userId}`)

@@ -3,11 +3,18 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { httpCacheInterceptor } from './core/interceptors/cache.interceptor';
+import { usersReducer } from './core/store/users.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { UsersEffects } from './core/store/users.effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore(),  
-      provideHttpClient(withFetch()), // Configure the HttpClient here
-    // Add the rest of the providers here
-  ]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideRouter(routes),
+    provideStore({usersInfo:usersReducer}),
+    provideEffects(UsersEffects),
+    provideHttpClient(withFetch(), withInterceptors([
+        httpCacheInterceptor({ globalTTL: 10800000 }),
+    ])), provideEffects()]
 };
