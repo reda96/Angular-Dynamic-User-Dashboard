@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError,  tap } from 'rxjs';
 import { UserModel } from '../models/user.interface';
  
 @Injectable({
@@ -32,15 +32,20 @@ export class UsersService {
   }
   getUserDetail(userId:number) {
     this.http.get(`https://reqres.in/api/users/${userId}`)
-    .pipe(tap((response:any)=> {
+    .pipe(
+      catchError(()=> {this.searchResultSubject.next(undefined);  throw new Error("No User Found")}),
+      tap((response:any)=> {
       this.userDetailsSubject.next(response.data);
       
     }))
     .subscribe();
   }
   searchWtiUserId(userId:number) {
-    this.http.get(`https://reqres.in/api/users/${userId}`)
-    .pipe(tap((response:any)=> {
+    let params = new HttpParams().set('isSearchReq', true);
+    this.http.get(`https://reqres.in/api/users/${userId}`,{ params })
+    .pipe(
+      catchError(()=> {this.searchResultSubject.next(undefined); return []}),
+      tap((response:any)=> {
       this.searchResultSubject.next(response.data);
       
     }))

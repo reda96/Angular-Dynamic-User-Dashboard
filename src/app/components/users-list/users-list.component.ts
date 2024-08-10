@@ -31,7 +31,6 @@ usersInfo$: Observable<usersInfo> = this.store.select(state => state.usersInfo);
     // this.usersService.getUsersList(1);
    this.usersInfoSubscription =  this.usersInfo$.pipe(take(1)).subscribe((info:usersInfo)=> {
       this.store.dispatch({ type: actionTypes.LOAD_USERS,payload: {page:info.pageNumber}});
-       console.log(info);
        
     });
    

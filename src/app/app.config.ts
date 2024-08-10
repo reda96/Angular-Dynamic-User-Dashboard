@@ -8,6 +8,7 @@ import { httpCacheInterceptor } from './core/interceptors/cache.interceptor';
 import { usersReducer } from './core/store/users.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { UsersEffects } from './core/store/users.effects';
+import { loadingInterceptor } from './core/interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
@@ -15,6 +16,8 @@ export const appConfig: ApplicationConfig = {
     provideStore({usersInfo:usersReducer}),
     provideEffects(UsersEffects),
     provideHttpClient(withFetch(), withInterceptors([
+      loadingInterceptor(),
         httpCacheInterceptor({ globalTTL: 10800000 }),
+        loadingInterceptor()
     ])), provideEffects()]
 };

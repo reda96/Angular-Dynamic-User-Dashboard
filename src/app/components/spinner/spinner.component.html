@@ -1,0 +1,14 @@
+
+
+<div   *ngIf="spinnerObs | async as  loading">
+    
+    <div [ngClass]="{'backBlur': loading}" *ngIf="loading">
+    </div>
+   <div class="ring">
+    <i class="pi pi-spin pi-spinner" style="font-size: 8rem"></i>
+   </div>
+ 
+   
+    </div> 
+
+    
